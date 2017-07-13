@@ -34,6 +34,7 @@ python simple_system.py
 OUTPUT:
 
 ```bash
+# [mood, tempo, genre]
 [ 50.5  50.5  50.5]
 [2 4 6]
 [ 9.  9.  9.]
@@ -51,6 +52,7 @@ python complex_system.py
 OUTPUT:
 
 ```bash
+# RECOMMENDATION FORMAT: [mood, tempo, genre]
 =========
 ('context: ', [1, 2, 3, 4, 5, 6, 7, 8])
 ('Individual recommendations: ', array([  1.,   1.,  20.]), array([30, 20, 10]), array([1, 1, 1]))
