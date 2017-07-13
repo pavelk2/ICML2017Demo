@@ -88,3 +88,4 @@ OUTPUT:
 
 * http://docs.mdlrs.apiary.io/
 * http://musimap.com
+* http://developers.musicshake.com/docs/songlist
