@@ -83,3 +83,8 @@ OUTPUT:
 ('Individual recommendations: ', array([10, 20, 30]), array([30, 20, 10]), array([1, 1, 1]))
 ('Final recommendation: ', array([ 10.6,   8.6,   6.6]))
 ```
+
+## Music Sources
+
+* http://docs.mdlrs.apiary.io/
+* http://musimap.com
