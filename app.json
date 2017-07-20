@@ -6,8 +6,5 @@
     "python",
     "ICML"
   ],
-  "repository": "https://github.com/yefim/flask-heroku-sample",
-  "addons": [
-    "heroku-postgresql"
-  ]
+  "repository": "https://github.com/pavelk2/ephemeral-context-music-recommendation"
 }
