@@ -1,7 +1,10 @@
 # Ephemeral Context for Music Recommendation
 
-[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 [![Code Climate](https://codeclimate.com/github/pavelk2/ephemeral-context-music-recommendation/badges/gpa.svg)](https://codeclimate.com/github/pavelk2/ephemeral-context-music-recommendation)
+
+
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+
 
 
 ### EPHEMERAL CONTEXT
