@@ -1,6 +1,6 @@
 import os
 from flask import Flask, render_template, request, jsonify
-from recommender.hybrid import rec1, rec2, rec3
+from hybrid.hybrid import rec1, rec2, rec3
 
 app = Flask(__name__)
 

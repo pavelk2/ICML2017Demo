@@ -1,8 +1,8 @@
 # Hybrid Recommender
 import json
-from recommender import Recommender
+from recommender.recommender import Recommender
 
-with open('recommender/hybrid_config.json') as config_file:    
+with open('hybrid/hybrid_config.json') as config_file:    
     config = json.load(config_file)
 print (config)
 

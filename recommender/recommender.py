@@ -1,5 +1,6 @@
 # Assuming that mood and genre are continuous variables
 import numpy as np
+from scipy import spatial
 
 class Recommender:
     def __init__(self, default_recommendation):
@@ -12,7 +13,7 @@ class Recommender:
     
     def getRules(self):
         return self.__rules
-    
+
     def applyRule(self, context, rule):
 
         rule_subset = [val for idx, val in enumerate(rule[0]) if val != 0]
