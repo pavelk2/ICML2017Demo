@@ -15,7 +15,7 @@ print(database)
 db = MySQLdb.connect(host=database.hostname,
                 user=database.username,
                 passwd=database.password,
-                db=database.database)
+                db="heroku_843cf1933fb9599")
 
 
 
