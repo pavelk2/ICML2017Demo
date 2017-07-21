@@ -9,7 +9,7 @@ MOODS[19] =
 [action, aggressive, bouncy, bright, calming, dark, driving, eerie, epic, grooving, humorous, intense, mysterious, mystical, relaxed, somber, suspenseful, unnerving, uplifting]
 
 GENRES[12] = 
-[Alternative rock, Ambient, Classical, Country, Dance & EDM, Dancehall, Depp House, Disco, Drum & Bass, Dubstep, Electronic, Folk & Singer-Songwriter]
+[0 Alternative rock, 1 Ambient, 2 Classical, 3 Country, 4 Dance & EDM, 5 Dancehall, 6 Deep House, 7 Disco, 8 Drum & Bass, 9 Dubstep, 10 Electronic, 11 Folk & Singer-Songwriter]
 
 ### EPHEMERAL CONTEXT
 

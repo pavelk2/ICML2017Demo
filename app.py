@@ -2,7 +2,7 @@ import os
 from flask import Flask, render_template
 from flask_cors import CORS, cross_origin
 
-from hybrid.helpers import getRecommendations
+from hybrid.hybrid import getRecommendations
 
 app = Flask(__name__)
 CORS(app)

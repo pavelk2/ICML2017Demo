@@ -55,6 +55,7 @@
 
         ],
         "default": [10, 80, 30]
-    }
+    },
+    "genres": ["Alternative rock", "Ambient", "Classical", "Country", "Dance & EDM", "Dancehall", "Deep House", "Disco", "Drum & Bass", "Dubstep", "Electronic", "Folk & Singer-Songwriter"],
+    "moods": ["action", "aggressive", "bouncy", "bright", "calming", "dark", "driving", "eerie", "epic", "grooving", "humorous", "intense", "mysterious", "mystical", "relaxed", "somber", "suspenseful", "unnerving", "uplifting"]
 }
-    
