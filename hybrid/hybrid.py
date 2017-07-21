@@ -12,7 +12,7 @@ from recommender.recommender import Recommender
 database =  urlparse(os.environ['CLEARDB_DATABASE_URL'])
 print(database)
 
-db = MySQLdb.connect(host=database.host,
+db = MySQLdb.connect(host=database.hostname,
                 user=database.username,
                 passwd=database.password,
                 db=database.database)
