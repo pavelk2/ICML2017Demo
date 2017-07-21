@@ -1,7 +1,11 @@
+
 # Hybrid Recommender
 from flask import  request, jsonify
 import json
+import math
+import numpy as np
 from recommender.recommender import Recommender
+
 
 with open('hybrid/hybrid_config.json') as config_file:    
     config = json.load(config_file)
@@ -27,12 +31,18 @@ def calcRecommendations(weights,context):
   rm_1 = rec1.recommend(context)
   rm_2 = rec2.recommend(context)
   rm_3 = rec3.recommend(context)
+
+
+  total_weight = sum(weights)
+  weights = (np.array(weights)/(total_weight*1.0)).tolist()
   hybrid = rm_1*weights[0]+ rm_2*weights[1]+rm_3*weights[2]
 
   return (rm_1,rm_2,rm_3,hybrid)
 
 def formResponse(recommendations):
   (rm_1,rm_2,rm_3,hybrid) = recommendations
+  print(rm_1)
+  print(hybrid)
   return {
       "individual":[
         {
@@ -62,7 +72,7 @@ def getRecommendations():
     return jsonify(response)
 
 def vector2titles(recommendation_vector):
-    return [config["moods"][recommendation_vector[0]],recommendation_vector[1],config["genres"][recommendation_vector[2]]]
+    return [config["moods"][int(recommendation_vector[0])],int(recommendation_vector[1]),config["genres"][int(recommendation_vector[2])]]
 
 def getSongs(mood,tempo,genre):
     return 1
