@@ -4,7 +4,19 @@ from flask import  request, jsonify
 import json
 import math
 import numpy as np
+import os
+import MySQLdb
+from urlparse import urlparse
 from recommender.recommender import Recommender
+
+database =  urlparse(os.environ['CLEARDB_DATABASE_URL'])
+print(database)
+
+db = MySQLdb.connect(host=database.host,
+                user=database.username,
+                passwd=database.password,
+                db=database.database)
+
 
 
 with open('hybrid/hybrid_config.json') as config_file:    
@@ -43,6 +55,13 @@ def formResponse(recommendations):
   (rm_1,rm_2,rm_3,hybrid) = recommendations
   print(rm_1)
   print(hybrid)
+
+  
+  hybrid_rec = vector2titles(hybrid.tolist())
+  mood = hybrid_rec[0]
+  tempo = hybrid_rec[1]
+  genre = hybrid_rec[2]
+  
   return {
       "individual":[
         {
@@ -56,7 +75,8 @@ def formResponse(recommendations):
           "recommendation" : vector2titles(rm_3.tolist())
         }
       ],
-      "hybrid":vector2titles(hybrid.tolist())
+      "hybrid":hybrid_rec,
+      "songs" : getSongs(mood, tempo, genre)
     }
 def getHTTPParamArray(param):
   return list(map(float, request.args.get(param).split(',')))
@@ -75,7 +95,18 @@ def vector2titles(recommendation_vector):
     return [config["moods"][int(recommendation_vector[0])],int(recommendation_vector[1]),config["genres"][int(recommendation_vector[2])]]
 
 def getSongs(mood,tempo,genre):
-    return 1
+    cur = db.cursor()
+    print(tempo,genre)
+    query = "select uri from tracks1 where bpm > ("+str(tempo)+"-10) and genre like '%"+genre+"%' order by playback_count desc limit 5"
+    print(query)
+
+    cur.execute(query)
+    songs = []
+    for (track_uri,) in cur:
+        songs.append(track_uri)
+    db.commit()
+    db.close()
+    return songs
 
 
 
