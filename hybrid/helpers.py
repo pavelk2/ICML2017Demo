@@ -1,5 +1,5 @@
 from flask import  request, jsonify
-from hybrid import rec1, rec2, rec3
+from hybrid.hybrid import rec1, rec2, rec3
 
 def calcRecommendations(weights,context):
   rm_1 = rec1.recommend(context)
