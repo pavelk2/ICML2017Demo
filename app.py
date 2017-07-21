@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template
 from flask_cors import CORS, cross_origin
 
 from hybrid.helpers import getRecommendations
