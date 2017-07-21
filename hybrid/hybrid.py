@@ -6,7 +6,7 @@ import math
 import numpy as np
 import os
 import MySQLdb
-from urlparse import urlparse
+from urllib.parse import urlparse
 from recommender.recommender import Recommender
 
 database =  urlparse(os.environ['CLEARDB_DATABASE_URL'])
@@ -97,7 +97,7 @@ def vector2titles(recommendation_vector):
 def getSongs(mood,tempo,genre):
     cur = db.cursor()
     print(tempo,genre)
-    query = "select uri from tracks1 where bpm > ("+str(tempo)+"-10) and genre like '%"+genre+"%' order by playback_count desc limit 5"
+    query = "select uri from tracks1 where bpm > ("+str(tempo)+"-10) and bpm < ("+str(tempo)+"+10) and genre like '%"+genre+"%' order by playback_count desc limit 5"
     print(query)
 
     cur.execute(query)
