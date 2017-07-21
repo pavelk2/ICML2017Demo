@@ -12,13 +12,6 @@ from recommender.recommender import Recommender
 database =  urlparse(os.environ['CLEARDB_DATABASE_URL'])
 print(database)
 
-db = MySQLdb.connect(host=database.hostname,
-                user=database.username,
-                passwd=database.password,
-                db="heroku_843cf1933fb9599")
-
-
-
 with open('hybrid/hybrid_config.json') as config_file:    
     config = json.load(config_file)
 
@@ -95,6 +88,10 @@ def vector2titles(recommendation_vector):
     return [config["moods"][int(recommendation_vector[0])],int(recommendation_vector[1]),config["genres"][int(recommendation_vector[2])]]
 
 def getSongs(mood,tempo,genre):
+    db = MySQLdb.connect(host=database.hostname,
+                user=database.username,
+                passwd=database.password,
+                db="heroku_843cf1933fb9599")
     cur = db.cursor()
     print(tempo,genre)
     query = "select uri from tracks1 where bpm > ("+str(tempo)+"-10) and bpm < ("+str(tempo)+"+10) and genre like '%"+genre+"%' order by playback_count desc limit 5"
