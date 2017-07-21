@@ -14,13 +14,13 @@ def formResponse(recommendations):
   return {
       "individual":[
         {
-          "name":"Sport-oriented",
+          "name":"recommender_1",
           "recommendation" : rm_1.tolist()
         },{
-          "name":"Place-oriented",
+          "name":"recommender_2",
           "recommendation" : rm_2.tolist()
         },{
-          "name":"Emotion-oriented",
+          "name":"recommender_3",
           "recommendation" : rm_3.tolist()
         }
       ],

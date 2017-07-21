@@ -4,7 +4,6 @@ from recommender.recommender import Recommender
 
 with open('hybrid/hybrid_config.json') as config_file:    
     config = json.load(config_file)
-print (config)
 
 # RECOMMENDER 1
 rec1 = Recommender(config["rec1"]["default"])
