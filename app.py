@@ -1,8 +1,11 @@
 import os
 from flask import Flask, render_template, request, jsonify
+from flask_cors import CORS, cross_origin
 from hybrid.hybrid import rec1, rec2, rec3
 
+
 app = Flask(__name__)
+CORS(app)
 
 @app.route('/', methods=['GET'])
 def index():
