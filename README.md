@@ -5,7 +5,11 @@
 
 [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
+MOODS[19] = 
+[action, aggressive, bouncy, bright, calming, dark, driving, eerie, epic, grooving, humorous, intense, mysterious, mystical, relaxed, somber, suspenseful, unnerving, uplifting]
 
+GENRES[12] = 
+[Alternative rock, Ambient, Classical, Country, Dance & EDM, Dancehall, Depp House, Disco, Drum & Bass, Dubstep, Electronic, Folk & Singer-Songwriter]
 
 ### EPHEMERAL CONTEXT
 
