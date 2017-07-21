@@ -104,7 +104,6 @@ def getSongs(mood,tempo,genre):
     songs = []
     for (track_uri,) in cur:
         songs.append(track_uri)
-    db.commit()
     db.close()
     return songs
 
