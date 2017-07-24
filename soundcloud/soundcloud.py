@@ -27,9 +27,9 @@ def getSongs(recommendation_vector):
         [recommendation_vector])
     sorted_by_similarity = soundcloud_tracks.sort("similarity", ascending = 0)
     top_5 = sorted_by_similarity.head(n=5)
-    top_5_as_list = top_5.T.to_dict().values()
-    
-    return top_5_as_list[0]
+    top_5_as_list = top_5.to_dict('records')
+    print(top_5_as_list)
+    return top_5_as_list
 
 #recommendation_vector = [0,1,0,0,0,0,0,0,0,0,0,0,70,2,0]
     
