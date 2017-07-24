@@ -42,7 +42,10 @@ def getNotes(rec_vector):
   genre_string = getNote4Genre(rec_vector) 
   bpm = rec_vector[12]*133,
   mood = getNote4Mood(rec_vector)
-  
+  print(genre_string)
+  print(bpm)
+  print(mood)
+
   return (genre_string, bpm[0], mood)
     #return [config["moods"][int(recommendation_vector[0])],int(recommendation_vector[1]),config["genres"][int(recommendation_vector[2])]]
 
