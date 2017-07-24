@@ -32,8 +32,6 @@ def getHTTPParamArray(param):
 
 def formResponse(recommendations):
   (rm_1,rm_2,rm_3,hybrid) = recommendations
-  print(rm_1)
-  print(hybrid)
   
   return {
       "individual":[
