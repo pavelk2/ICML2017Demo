@@ -1,10 +1,8 @@
-
 # Hybrid Recommender
 import json
 import numpy as np
 import pandas as pd
 from sklearn.metrics.pairwise import cosine_similarity
-
 from recommender.recommender import Recommender
 
 with open('hybrid/hybrid_config.json') as config_file:    
@@ -15,12 +13,10 @@ rec1 = Recommender(config["rec1"]["default"])
 for rule in config["rec1"]["examples"]:
     rec1.addRule(rule[0],rule[1])
 
-
 # RECOMMENDER 2
 rec2 = Recommender(config["rec2"]["default"])
 for rule in config["rec2"]["examples"]:
     rec2.addRule(rule[0],rule[1])
-
 
 # RECOMMENDER 3
 rec3 = Recommender(config["rec3"]["default"])
@@ -42,18 +38,19 @@ def getNotes(rec_vector):
   genre_string = getNote4Genre(rec_vector) 
   bpm = rec_vector[12]*133,
   mood = getNote4Mood(rec_vector)
-  return (genre_string, bpm[0], mood)
-    #return [config["moods"][int(recommendation_vector[0])],int(recommendation_vector[1]),config["genres"][int(recommendation_vector[2])]]
 
+  return (genre_string, bpm[0], mood)
+  
 def getNote4Genre(rec_vector):
   genre_string = ""
   for i in range(0, 12):
     if (rec_vector[i] > 0.66):
-      genre_string+= config["genres"][i]+" "
+      genre_string+= config["genres"][i]+", "
     elif (rec_vector[i] > 0.33):
-      genre_string+= "Some "+config["genres"][i]+" "
+      genre_string+= "Some "+config["genres"][i]+", "
     elif (rec_vector[i] > 0):
-      genre_string+= "A bit of "+config["genres"][i]+" "
+      genre_string+= "A bit of "+config["genres"][i]+", "
+  
   return genre_string
 
 def getNote4Mood(rec_vector):

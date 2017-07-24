@@ -8,7 +8,6 @@ from soundcloud.soundcloud import getSongs
 app = Flask(__name__)
 CORS(app)
 
-
 @app.route('/', methods=['GET'])
 def index():
   return render_template('index.html')
@@ -25,10 +24,13 @@ def recommend():
     response = formResponse(recommendations)
     return jsonify(response)
 
+if __name__ == '__main__':
+  port = int(os.environ.get('PORT', 5000))
+  app.run(host='0.0.0.0', port=port, debug=True)
+
 # ==================
 def getHTTPParamArray(param):
   return list(map(float, request.args.get(param).split(',')))
-
 
 def formResponse(recommendations):
   (rm_1,rm_2,rm_3,hybrid) = recommendations
@@ -49,8 +51,3 @@ def formResponse(recommendations):
       "hybrid": getNotes(hybrid.tolist()),
       "songs" : getSongs(hybrid.tolist())
     }
-
-
-if __name__ == '__main__':
-  port = int(os.environ.get('PORT', 5000))
-  app.run(host='0.0.0.0', port=port, debug=True)
