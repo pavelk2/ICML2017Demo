@@ -1,16 +1,11 @@
 
 # Hybrid Recommender
-from flask import  request, jsonify
 import json
-import math
 import numpy as np
-import os
-import MySQLdb
-from urllib.parse import urlparse
-from recommender.recommender import Recommender
+import pandas as pd
+from sklearn.metrics.pairwise import cosine_similarity
 
-database =  urlparse(os.environ['CLEARDB_DATABASE_URL'])
-print(database)
+from recommender.recommender import Recommender
 
 with open('hybrid/hybrid_config.json') as config_file:    
     config = json.load(config_file)
@@ -37,72 +32,46 @@ def calcRecommendations(weights,context):
   rm_2 = rec2.recommend(context)
   rm_3 = rec3.recommend(context)
 
-
   total_weight = sum(weights)
   weights = (np.array(weights)/(total_weight*1.0)).tolist()
   hybrid = rm_1*weights[0]+ rm_2*weights[1]+rm_3*weights[2]
 
   return (rm_1,rm_2,rm_3,hybrid)
 
-def formResponse(recommendations):
-  (rm_1,rm_2,rm_3,hybrid) = recommendations
-  print(rm_1)
-  print(hybrid)
-
+def getNotes(rec_vector):
+  genre_string = getNote4Genre(rec_vector) 
+  bpm = rec_vector[12]*133,
+  mood = getNote4Mood(rec_vector)
   
-  hybrid_rec = vector2titles(hybrid.tolist())
-  mood = hybrid_rec[0]
-  tempo = hybrid_rec[1]
-  genre = hybrid_rec[2]
-  
-  return {
-      "individual":[
-        {
-          "name":"recommender_1",
-          "recommendation" : vector2titles(rm_1.tolist())
-        },{
-          "name":"recommender_2",
-          "recommendation" : vector2titles(rm_2.tolist())
-        },{
-          "name":"recommender_3",
-          "recommendation" : vector2titles(rm_3.tolist())
-        }
-      ],
-      "hybrid":hybrid_rec,
-      "songs" : getSongs(mood, tempo, genre)
-    }
-def getHTTPParamArray(param):
-  return list(map(float, request.args.get(param).split(',')))
+  return (genre_string, bpm[0], mood)
+    #return [config["moods"][int(recommendation_vector[0])],int(recommendation_vector[1]),config["genres"][int(recommendation_vector[2])]]
 
-def getRecommendations():
-    weights = getHTTPParamArray("weights")
-    context = getHTTPParamArray("context")
-    if (len(context) != 8 or len(weights) != 3):
-        response = {"error":"context should consist exactly out of 8 features, weights should be exactly 3"}
-    else:
-        recommendations = calcRecommendations(weights, context)
-    response = formResponse(recommendations)
-    return jsonify(response)
+def getNote4Genre(rec_vector):
+  genre_string = ""
+  for i in range(0, 12):
+    if (rec_vector[i] > 0.66):
+      genre_string+= config["genres"][i]+" "
+    elif (rec_vector[i] > 0.33):
+      genre_string+= "Some "+config["genres"][i]+" "
+    elif (rec_vector[i] > 0):
+      genre_string+= "A bit of "+config["genres"][i]+" "
+  return genre_string
 
-def vector2titles(recommendation_vector):
-    return [config["moods"][int(recommendation_vector[0])],int(recommendation_vector[1]),config["genres"][int(recommendation_vector[2])]]
+def getNote4Mood(rec_vector):
+  valence = rec_vector[13]
+  arousal = rec_vector[14]
 
-def getSongs(mood,tempo,genre):
-    db = MySQLdb.connect(host=database.hostname,
-                user=database.username,
-                passwd=database.password,
-                db="heroku_843cf1933fb9599")
-    cur = db.cursor()
-    print(tempo,genre)
-    query = "select uri from tracks1 where bpm > ("+str(tempo)+"-10) and bpm < ("+str(tempo)+"+10) and genre like '%"+genre+"%' order by playback_count desc limit 5"
-    print(query)
+  moods = pd.read_csv("hybrid/moods.csv")
 
-    cur.execute(query)
-    songs = []
-    for (track_uri,) in cur:
-        songs.append(track_uri)
-    db.close()
-    return songs
+  moods["similarity"] = cosine_similarity(
+    moods[["valence","arousal"]],
+    [[valence,arousal]])
+
+  sorted_by_similarity = moods.sort("similarity", ascending = 0)
+  top_1 = sorted_by_similarity.head(n=1)
+  top_1_as_list = top_1["mood"].tolist()[0]
+
+  return top_1_as_list
 
 
 
