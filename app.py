@@ -48,8 +48,8 @@ def formResponse(recommendations):
           "recommendation" : getNotes(rm_3.tolist())
         }
       ],
-      "hybrid": getNotes(hybrid.tolist())#,
-     # "songs" : getSongs(hybrid.tolist())
+      "hybrid": getNotes(hybrid.tolist()),
+      "songs" : getSongs(hybrid.tolist())
     }
 
 
