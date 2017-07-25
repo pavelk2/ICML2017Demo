@@ -158,10 +158,10 @@ Host: icml2017demo.herokuapp.com
 }
 ```
 
-## EPHEMERAL CONTEXT
+#### EPHEMERAL CONTEXT
 
 ```bash
-CONTEXT_DICTIONARY = {
+CONTEXT_STATES = {
     "activity":["undefined","jogging", "walking", "cycling", "driving", "sleeping"],
     "speed": ["undefined","slow","moderate","fast"],
     "social": ["undefined","alone", "family", "friends", "colleagues"],
@@ -181,7 +181,7 @@ CONTEXT_EXAMPLE = [1,3,1,2,3,6,2,1]
 Recommendations are formed based on 1036 tracks from SoundCLoud: https://github.com/pavelk2/ICML2017Demo/blob/master/exploratory_survey/Music%20preferences-report.csv
 
 
-## SoundCloud Music Classification
+### Music Classification
 
 #### GENRES
 
