@@ -15,7 +15,6 @@ class Recommender:
         return self.__rules
 
     def applyRule(self, context, rule):
-
         rule_subset = [val for idx, val in enumerate(rule[0]) if val != 0]
         context_subset = [context[idx] for idx, val in enumerate(rule[0]) if val != 0]
         if (rule_subset == context_subset):
