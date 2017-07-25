@@ -5,16 +5,163 @@
 
 [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
-MOODS[19] = 
-[action, aggressive, bouncy, bright, calming, dark, driving, eerie, epic, grooving, humorous, intense, mysterious, mystical, relaxed, somber, suspenseful, unnerving, uplifting]
+## API usage example
 
-GENRES[12] = 
-[0 Alternative rock, 1 Ambient, 2 Classical, 3 Country, 4 Dance & EDM, 5 Dancehall, 6 Deep House, 7 Disco, 8 Drum & Bass, 9 Dubstep, 10 Electronic, 11 Folk & Singer-Songwriter]
+#### Request
 
-### EPHEMERAL CONTEXT
+```
+GET /recommend?context=1,0,0,0,0,0,0,1&amp;weights=40,30,30 HTTP/1.1
+Host: icml2017demo.herokuapp.com
+```
+#### Response
+
+```javascript
+{
+    "hybrid": [
+        "A bit of Ambient, Electronic, ",
+        121.03,
+        "Relaxed"
+    ],
+    "individual": [
+        {
+            "name": "recommender_1",
+            "recommendation": [
+                "Electronic, ",
+                133,
+                "Elated"
+            ]
+        },
+        {
+            "name": "recommender_2",
+            "recommendation": [
+                "Ambient, ",
+                106.4,
+                "Content"
+            ]
+        },
+        {
+            "name": "recommender_3",
+            "recommendation": [
+                "Electronic, ",
+                119.7,
+                "Lethargic"
+            ]
+        }
+    ],
+    "songs": [
+        {
+            "arousal": -0.25,
+            "bpm": 0.977,
+            "genre_1": 0,
+            "genre_10": 0,
+            "genre_11": 1,
+            "genre_12": 0,
+            "genre_2": 0,
+            "genre_3": 0,
+            "genre_4": 0,
+            "genre_5": 0,
+            "genre_6": 0,
+            "genre_7": 0,
+            "genre_8": 0,
+            "genre_9": 0,
+            "id": 97426,
+            "permalink_url": "http://soundcloud.com/erasedtapes/rival-consoles-eve",
+            "similarity": 0.9318103486855794,
+            "uri": "https://api.soundcloud.com/tracks/14693565",
+            "valence": -0.25
+        },
+        {
+            "arousal": -0.25,
+            "bpm": 1.203,
+            "genre_1": 0,
+            "genre_10": 0,
+            "genre_11": 1,
+            "genre_12": 0,
+            "genre_2": 0,
+            "genre_3": 0,
+            "genre_4": 0,
+            "genre_5": 0,
+            "genre_6": 0,
+            "genre_7": 0,
+            "genre_8": 0,
+            "genre_9": 0,
+            "id": 261367,
+            "permalink_url": "http://soundcloud.com/eqwhy/808-kick-drum",
+            "similarity": 0.9316767556431742,
+            "uri": "https://api.soundcloud.com/tracks/103877671",
+            "valence": 0.5
+        },
+        {
+            "arousal": -0.25,
+            "bpm": 1.203,
+            "genre_1": 0,
+            "genre_10": 0,
+            "genre_11": 1,
+            "genre_12": 0,
+            "genre_2": 0,
+            "genre_3": 0,
+            "genre_4": 0,
+            "genre_5": 0,
+            "genre_6": 0,
+            "genre_7": 0,
+            "genre_8": 0,
+            "genre_9": 0,
+            "id": 260997,
+            "permalink_url": "http://soundcloud.com/eqwhy/get-down-bang-feat-kash",
+            "similarity": 0.9316767556431742,
+            "uri": "https://api.soundcloud.com/tracks/103606276",
+            "valence": 0.5
+        },
+        {
+            "arousal": -0.25,
+            "bpm": 1.203,
+            "genre_1": 0,
+            "genre_10": 0,
+            "genre_11": 1,
+            "genre_12": 0,
+            "genre_2": 0,
+            "genre_3": 0,
+            "genre_4": 0,
+            "genre_5": 0,
+            "genre_6": 0,
+            "genre_7": 0,
+            "genre_8": 0,
+            "genre_9": 0,
+            "id": 261010,
+            "permalink_url": "http://soundcloud.com/eqwhy/goin-crazy",
+            "similarity": 0.9316767556431742,
+            "uri": "https://api.soundcloud.com/tracks/103603023",
+            "valence": 0.5
+        },
+        {
+            "arousal": -0.25,
+            "bpm": 1.203,
+            "genre_1": 0,
+            "genre_10": 0,
+            "genre_11": 1,
+            "genre_12": 0,
+            "genre_2": 0,
+            "genre_3": 0,
+            "genre_4": 0,
+            "genre_5": 0,
+            "genre_6": 0,
+            "genre_7": 0,
+            "genre_8": 0,
+            "genre_9": 0,
+            "id": 261349,
+            "permalink_url": "http://soundcloud.com/eqwhy/invasion",
+            "similarity": 0.9316767556431742,
+            "uri": "https://api.soundcloud.com/tracks/103881354",
+            "valence": 0.5
+        }
+    ]
+}
+```
+
+#### EPHEMERAL CONTEXT
 
 ```bash
-CONTEXT_DICTIONARY = {
+CONTEXT_STATES = {
     "activity":["undefined","jogging", "walking", "cycling", "driving", "sleeping"],
     "speed": ["undefined","slow","moderate","fast"],
     "social": ["undefined","alone", "family", "friends", "colleagues"],
@@ -29,100 +176,33 @@ CONTEXT_DICTIONARY = {
 CONTEXT_EXAMPLE = [1,3,1,2,3,6,2,1]
 ```
 
-### GET CODE:
+## SoundCloud
 
-```bash
-git clone https://github.com/pavelk2/ephemeral-context-music-recommendation ICML
-cd ICML
-```
-
-### SEE HOW SIMPLE RECOMMENDER WORKS:
-
-```bash
-python simple_system.py
-```
-
-OUTPUT:
-
-```bash
-# [mood, tempo, genre]
-[ 50.5  50.5  50.5]
-[2 4 6]
-[ 9.  9.  9.]
-[ 10.  10.  10.]
-[ 100.  100.  100.]
-[2 4 6]
-```
-
-### SEE HOW COMPLEX RECOMMENDER WORKS:
-
-```bash
-python complex_system.py
-```
-
-OUTPUT:
-
-```bash
-# RECOMMENDATION FORMAT: [mood, tempo, genre]
-=========
-('context: ', [1, 2, 3, 4, 5, 6, 7, 8])
-('Individual recommendations: ', array([  1.,   1.,  20.]), array([30, 20, 10]), array([1, 1, 1]))
-('Final recommendation: ', array([ 9.7,  6.7,  5.6]))
-
-=========
-('context: ', [0, 0, 0, 0, 0, 0, 0, 0])
-('Individual recommendations: ', array([10, 20, 30]), array([30, 20, 10]), array([1, 1, 1]))
-('Final recommendation: ', array([ 10.6,   8.6,   6.6]))
-
-=========
-('context: ', [9, 9, 3, 4, 5, 6, 7, 8])
-('Individual recommendations: ', array([10, 20, 30]), array([30, 20, 10]), array([1, 1, 1]))
-('Final recommendation: ', array([ 10.6,   8.6,   6.6]))
-
-=========
-('context: ', [1, 2, 3, 10, 5, 6, 7, 8])
-('Individual recommendations: ', array([  1.,   1.,  20.]), array([30, 20, 10]), array([1, 1, 1]))
-('Final recommendation: ', array([ 9.7,  6.7,  5.6]))
-
-=========
-('context: ', [10, 2, 30, 4, 50, 6, 70, 8])
-('Individual recommendations: ', array([10, 20, 30]), array([30, 20, 10]), array([1, 1, 1]))
-('Final recommendation: ', array([ 10.6,   8.6,   6.6]))
-
-=========
-('context: ', [100, 200, 30, 100, 50, 6, 70, 8])
-('Individual recommendations: ', array([10, 20, 30]), array([30, 20, 10]), array([1, 1, 1]))
-('Final recommendation: ', array([ 10.6,   8.6,   6.6]))
-```
-
-## Music Sources
-
-* http://docs.mdlrs.apiary.io/
-* http://musimap.com
-* http://developers.musicshake.com/docs/songlist
+Recommendations are formed based on 1036 tracks from SoundCLoud: https://github.com/pavelk2/ICML2017Demo/blob/master/exploratory_survey/Music%20preferences-report.csv
 
 
-## GISTS 
+### Music Classification
 
 #### GENRES
 
-```
--- update tracks_vec set genre_1 = 1 where (genre like "%alternative%" and genre like "%rock%") or (tags like "%alternative%" and tags like "%rock%")
--- update tracks_vec set genre_2 = 1 where (genre like "%Ambient%" and genre like "%Ambient%")
--- update tracks_vec set genre_3 = 1 where (genre like "%Classic%" )
--- update tracks_vec set genre_4 = 1 where (genre like "%Country%" )
--- update tracks_vec set genre_5 = 1 where (genre like "%Dance%" or genre like "%EDM%")
--- update tracks_vec set genre_6 = 1 where (genre like "%Dancehall%" or tags like "%Dancehall%") 
--- update tracks_vec set genre_7 = 1 where (genre like "%Deep%" and genre like "%House%") 
--- update tracks_vec set genre_8 = 1 where (genre like "%Disco%" or tags like "%Disco%" ) 
--- update tracks_vec set genre_9 = 1 where (genre like "%D&B%" or (genre like "%Drum%" and genre like "%bass%" )) 
--- update tracks_vec set genre_10 = 1 where (genre like "%dubstep%") 
--- update tracks_vec set genre_11 = 1 where (genre like "%Electronic%") 
--- update tracks_vec set genre_12 = 1 where (genre like "%Folk%" or genre like "Songwriter" or genre like "Singer") 
+```sql
+update tracks_SC set genre_1 = 1 where (genre like "%alternative%" and genre like "%rock%") or (tags like "%alternative%" and tags like "%rock%")
+update tracks_SC set genre_2 = 1 where (genre like "%Ambient%" and genre like "%Ambient%")
+update tracks_SC set genre_3 = 1 where (genre like "%Classic%" )
+update tracks_SC set genre_4 = 1 where (genre like "%Country%" )
+update tracks_SC set genre_5 = 1 where (genre like "%Dance%" or genre like "%EDM%")
+update tracks_SC set genre_6 = 1 where (genre like "%Dancehall%" or tags like "%Dancehall%") 
+update tracks_SC set genre_7 = 1 where (genre like "%Deep%" and genre like "%House%") 
+update tracks_SC set genre_8 = 1 where (genre like "%Disco%" or tags like "%Disco%" ) 
+update tracks_SC set genre_9 = 1 where (genre like "%D&B%" or (genre like "%Drum%" and genre like "%bass%" )) 
+update tracks_SC set genre_10 = 1 where (genre like "%dubstep%") 
+update tracks_SC set genre_11 = 1 where (genre like "%Electronic%") 
+update tracks_SC set genre_12 = 1 where (genre like "%Folk%" or genre like "Songwriter" or genre like "Singer") 
 ```
 
 #### MOODS
-```
+
+```sql
 -- Valence
 -- positive
 update tracks_SC set valence = 4 where (tags like "%happy%" or tags like "%content%") or (description like "%happy%" or description like "%content%");
@@ -146,5 +226,4 @@ update tracks_SC set arousal = -1 where (tags like "%sad%" or tags like "%conten
 update tracks_SC set arousal = -2 where (tags like "%depress%" or tags like "%serene%") or (description like "%depress%" or description like "%serene%");
 update tracks_SC set arousal = -3 where (tags like "%letharg%" or tags like "%relax%") or (description like "%letharg%" or description like "%relax%");
 update tracks_SC set arousal = -4 where (tags like "%fatig%" or tags like "%calm%") or (description like "%fatig%" or description like "%calm%");
-
 ```
