@@ -185,18 +185,18 @@ CONTEXT_EXAMPLE = [1,3,1,2,3,6,2,1]
 #### GENRES
 
 ```sql
--- update tracks_vec set genre_1 = 1 where (genre like "%alternative%" and genre like "%rock%") or (tags like "%alternative%" and tags like "%rock%")
--- update tracks_vec set genre_2 = 1 where (genre like "%Ambient%" and genre like "%Ambient%")
--- update tracks_vec set genre_3 = 1 where (genre like "%Classic%" )
--- update tracks_vec set genre_4 = 1 where (genre like "%Country%" )
--- update tracks_vec set genre_5 = 1 where (genre like "%Dance%" or genre like "%EDM%")
--- update tracks_vec set genre_6 = 1 where (genre like "%Dancehall%" or tags like "%Dancehall%") 
--- update tracks_vec set genre_7 = 1 where (genre like "%Deep%" and genre like "%House%") 
--- update tracks_vec set genre_8 = 1 where (genre like "%Disco%" or tags like "%Disco%" ) 
--- update tracks_vec set genre_9 = 1 where (genre like "%D&B%" or (genre like "%Drum%" and genre like "%bass%" )) 
--- update tracks_vec set genre_10 = 1 where (genre like "%dubstep%") 
--- update tracks_vec set genre_11 = 1 where (genre like "%Electronic%") 
--- update tracks_vec set genre_12 = 1 where (genre like "%Folk%" or genre like "Songwriter" or genre like "Singer") 
+update tracks_SC set genre_1 = 1 where (genre like "%alternative%" and genre like "%rock%") or (tags like "%alternative%" and tags like "%rock%")
+update tracks_SC set genre_2 = 1 where (genre like "%Ambient%" and genre like "%Ambient%")
+update tracks_SC set genre_3 = 1 where (genre like "%Classic%" )
+update tracks_SC set genre_4 = 1 where (genre like "%Country%" )
+update tracks_SC set genre_5 = 1 where (genre like "%Dance%" or genre like "%EDM%")
+update tracks_SC set genre_6 = 1 where (genre like "%Dancehall%" or tags like "%Dancehall%") 
+update tracks_SC set genre_7 = 1 where (genre like "%Deep%" and genre like "%House%") 
+update tracks_SC set genre_8 = 1 where (genre like "%Disco%" or tags like "%Disco%" ) 
+update tracks_SC set genre_9 = 1 where (genre like "%D&B%" or (genre like "%Drum%" and genre like "%bass%" )) 
+update tracks_SC set genre_10 = 1 where (genre like "%dubstep%") 
+update tracks_SC set genre_11 = 1 where (genre like "%Electronic%") 
+update tracks_SC set genre_12 = 1 where (genre like "%Folk%" or genre like "Songwriter" or genre like "Singer") 
 ```
 
 #### MOODS
