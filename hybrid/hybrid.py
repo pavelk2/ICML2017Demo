@@ -26,18 +26,17 @@ for rule in config["rec3"]["examples"]:
 def calcRecommendations(weights,context):
   rm_1 = rec1.recommend(context)
   rm_2 = rec2.recommend(context)
-  rm_3 = rec3.recommend(context)
+  rm_3 = rec3.recommend(context)  
 
-
-  balanced_weights = balanceWeights(weights, context)
   reliability_flags = getReliabilityFlags(context)
-  final_weights = balanced_weights * np.array(reliability_flags)
+  selected_weights = np.array(reliability_flags) * weights
+  balanced_weights = balanceWeights(selected_weights)
   
-  hybrid = rm_1*final_weights[0] + rm_2*final_weights[1]+ rm_3*final_weights[2]
+  hybrid = rm_1*balanced_weights[0] + rm_2*balanced_weights[1]+ rm_3*balanced_weights[2]
   
   return (rm_1,rm_2,rm_3,hybrid,reliability_flags)
 
-def balanceWeights(weights,context):
+def balanceWeights(weights):
   total_weight = sum(weights)
   weights = (np.array(weights)/(total_weight*1.0)).tolist()
   
