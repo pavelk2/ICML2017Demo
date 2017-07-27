@@ -1,9 +1,35 @@
-# Ephemeral Context for Music Recommendation
-
-[![Code Climate](https://codeclimate.com/github/pavelk2/ephemeral-context-music-recommendation/badges/gpa.svg)](https://codeclimate.com/github/pavelk2/ephemeral-context-music-recommendation)
-
+# ICML2017Demo
 
 [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+
+
+Demo for Machine Learning for Music Discovery workshop at ICML2017 https://pavelk2.github.io/ICML2017Demo
+
+![](https://habrastorage.org/web/d69/4cd/053/d694cd0537084ab99c6dc35cf77f5f00.png)
+
+## Survey 
+Exploratory survey about causes affecting music preferences
+
+#### Conditions
+
+* One survey was shared on social media (https://pavelkucherbaev.typeform.com/to/WVLEi7)
+* Another survey was launched on human computation platform CrowdFlower (https://pavelkucherbaev.typeform.com/to/Okk9Ni)
+
+#### Results
+
+* We collected 25 responses from social media (https://github.com/pavelk2/ICML2017Demo/blob/master/exploratory_survey/Music%20preferences-report.csv)
+* We collected 103 responses from CrowdFlower (https://github.com/pavelk2/ICML2017Demo/blob/master/exploratory_survey/Music%20preferences%20CrowdFlower-report.csv)
+
+## API
+
+* Code: https://github.com/pavelk2/ephemeral-context-music-recommendation
+* Hosted on Heroku: https://icml2017demo.herokuapp.com
+* Request example:
+
+```
+GET /recommend?context=1,0,1,1,0,1,1,1&amp;weights=60,40,40 HTTP/1.1
+Host: icml2017demo.herokuapp.com
+```
 
 ## API usage example
 
@@ -15,15 +41,11 @@ Host: icml2017demo.herokuapp.com
 ```
 #### Response
 
-```javascript
+```json
 {
-    "hybrid": [
-        "A bit of Ambient, Electronic, ",
-        121.03,
-        "Relaxed"
-    ],
-    "individual": [
+    "recommenders": [
         {
+            "is_reliable": 1,
             "name": "recommender_1",
             "recommendation": [
                 "Electronic, ",
@@ -32,26 +54,37 @@ Host: icml2017demo.herokuapp.com
             ]
         },
         {
+            "is_reliable": 0,
             "name": "recommender_2",
             "recommendation": [
-                "Ambient, ",
-                106.4,
-                "Content"
+                "Some Ambient, Some Folk & Singer-Songwriter, ",
+                99.75,
+                "Elated"
             ]
         },
         {
+            "is_reliable": 1,
             "name": "recommender_3",
             "recommendation": [
-                "Electronic, ",
+                "Ambient, Electronic, ",
                 119.7,
-                "Lethargic"
+                "Fatigued"
+            ]
+        },
+        {
+            "is_reliable": 1,
+            "name": "hybrid3",
+            "recommendation": [
+                "A bit of Ambient, Electronic, ",
+                127.67999999999999,
+                "Happy"
             ]
         }
     ],
     "songs": [
         {
-            "arousal": -0.25,
-            "bpm": 0.977,
+            "arousal": 0.25,
+            "bpm": 0.865,
             "genre_1": 0,
             "genre_10": 0,
             "genre_11": 1,
@@ -64,15 +97,15 @@ Host: icml2017demo.herokuapp.com
             "genre_7": 0,
             "genre_8": 0,
             "genre_9": 0,
-            "id": 97426,
-            "permalink_url": "http://soundcloud.com/erasedtapes/rival-consoles-eve",
-            "similarity": 0.9318103486855794,
-            "uri": "https://api.soundcloud.com/tracks/14693565",
-            "valence": -0.25
+            "id": 174720,
+            "permalink_url": "http://soundcloud.com/illbilly_hitec/illbilly-hitec-ft-lady-n-why",
+            "similarity": 0.974883864591345,
+            "uri": "https://api.soundcloud.com/tracks/47685694",
+            "valence": 0.25
         },
         {
-            "arousal": -0.25,
-            "bpm": 1.203,
+            "arousal": 0.25,
+            "bpm": 0.88,
             "genre_1": 0,
             "genre_10": 0,
             "genre_11": 1,
@@ -85,10 +118,10 @@ Host: icml2017demo.herokuapp.com
             "genre_7": 0,
             "genre_8": 0,
             "genre_9": 0,
-            "id": 261367,
-            "permalink_url": "http://soundcloud.com/eqwhy/808-kick-drum",
-            "similarity": 0.9316767556431742,
-            "uri": "https://api.soundcloud.com/tracks/103877671",
+            "id": 62149,
+            "permalink_url": "http://soundcloud.com/technowagon/4-ghianda-apricots",
+            "similarity": 0.9587312774139962,
+            "uri": "https://api.soundcloud.com/tracks/6814739",
             "valence": 0.5
         },
         {
@@ -108,7 +141,7 @@ Host: icml2017demo.herokuapp.com
             "genre_9": 0,
             "id": 260997,
             "permalink_url": "http://soundcloud.com/eqwhy/get-down-bang-feat-kash",
-            "similarity": 0.9316767556431742,
+            "similarity": 0.9428665597107959,
             "uri": "https://api.soundcloud.com/tracks/103606276",
             "valence": 0.5
         },
@@ -129,7 +162,7 @@ Host: icml2017demo.herokuapp.com
             "genre_9": 0,
             "id": 261010,
             "permalink_url": "http://soundcloud.com/eqwhy/goin-crazy",
-            "similarity": 0.9316767556431742,
+            "similarity": 0.9428665597107959,
             "uri": "https://api.soundcloud.com/tracks/103603023",
             "valence": 0.5
         },
@@ -148,10 +181,10 @@ Host: icml2017demo.herokuapp.com
             "genre_7": 0,
             "genre_8": 0,
             "genre_9": 0,
-            "id": 261349,
-            "permalink_url": "http://soundcloud.com/eqwhy/invasion",
-            "similarity": 0.9316767556431742,
-            "uri": "https://api.soundcloud.com/tracks/103881354",
+            "id": 261367,
+            "permalink_url": "http://soundcloud.com/eqwhy/808-kick-drum",
+            "similarity": 0.9428665597107959,
+            "uri": "https://api.soundcloud.com/tracks/103877671",
             "valence": 0.5
         }
     ]
