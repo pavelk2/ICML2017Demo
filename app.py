@@ -18,16 +18,16 @@ def getHTTPParamArray(param):
 def formResponse(recs):
   (ind_recommendations,hybrid, flags) = recs
   
-  response = {"recommendations":[], "songs":[]}
+  response = {"recommenders":[], "songs":[]}
   # response for individual recommenders
   for i, recommendation in enumerate(ind_recommendations):
-    response["recommendations"].append({
+    response["recommenders"].append({
       "name":"recommender_"+str(i+1),
       "recommendation": getNotes(recommendation.tolist()),
       "is_reliable":flags[i]
       })
   # responses for hybrid recommender
-  response["recommendations"].append({
+  response["recommenders"].append({
       "name":"hybrid",
       "recommendation":getNotes(hybrid.tolist()),
       "is_reliable":1
