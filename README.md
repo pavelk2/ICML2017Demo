@@ -3,7 +3,7 @@
 [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
 
-Demo for Machine Learning for Music Discovery workshop at ICML2017 https://pavelk2.github.io/ICML2017Demo
+Demo for Machine Learning for Music Discovery workshop at ICML2017 https://icml2017demo.herokuapp.com
 
 ![](https://habrastorage.org/web/d69/4cd/053/d694cd0537084ab99c6dc35cf77f5f00.png)
 
