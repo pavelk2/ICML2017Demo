@@ -1,0 +1,19 @@
+body {
+  /*padding-top: 20px;*/
+  padding-bottom: 20px;
+}
+
+.navbar {
+  margin-bottom: 20px;
+}
+
+.card{
+    margin-bottom:20px;
+}
+.hidden{
+    display:none;
+}
+
+table tr td:nth-child(4){
+    width:70%;
+}
