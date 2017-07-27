@@ -31,7 +31,7 @@ def formResponse(recs):
   for i, recommendation in enumerate(ind_recommendations):
     response["recommenders"].append(getRecommendationOutput("recommender_"+str(i+1),recommendation,flags[i]))
   # responses for hybrid recommender
-  response["recommenders"].append(getRecommendationOutput("hybrid"+str(i+1),hybrid,1))
+  response["recommenders"].append(getRecommendationOutput("hybrid",hybrid,1))
   # responses with recommended tracks
   response["songs"] = getSongs(hybrid.tolist())
   
