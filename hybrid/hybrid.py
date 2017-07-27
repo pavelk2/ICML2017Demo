@@ -2,39 +2,42 @@
 import json
 import numpy as np
 import pandas as pd
+
 from sklearn.metrics.pairwise import cosine_similarity
 from recommender.recommender import Recommender
 
 with open('hybrid/hybrid_config.json') as config_file:    
     config = json.load(config_file)
 
-# RECOMMENDER 1
-rec1 = Recommender(config["rec1"]["default"])
-for rule in config["rec1"]["examples"]:
-    rec1.addRule(rule[0],rule[1])
+RECOMMENDERS_USED = [
+  {"name":"rec1", "used_features":[0]},
+  {"name":"rec2", "used_features":[3,4,5]},
+  {"name":"rec3", "used_features":[2,6,7]}
+]
+recommenders = []
 
-# RECOMMENDER 2
-rec2 = Recommender(config["rec2"]["default"])
-for rule in config["rec2"]["examples"]:
-    rec2.addRule(rule[0],rule[1])
+for recommender in RECOMMENDERS_USED:
+  rec = Recommender(config[recommender["name"]]["default"])
+  for rule in config[recommender["name"]]["examples"]:
+    rec.addRule(rule[0],rule[1])
+  recommenders.append(rec)
 
-# RECOMMENDER 3
-rec3 = Recommender(config["rec3"]["default"])
-for rule in config["rec3"]["examples"]:
-    rec3.addRule(rule[0],rule[1])
 
 def calcRecommendations(weights,context):
-  rm_1 = rec1.recommend(context)
-  rm_2 = rec2.recommend(context)
-  rm_3 = rec3.recommend(context)  
+  indiv_recommendations = []
+  for rec in recommenders:
+    indiv_recommendations.append(rec.recommend(context))
 
   reliability_flags = getReliabilityFlags(context)
   selected_weights = np.array(reliability_flags) * weights
   balanced_weights = balanceWeights(selected_weights)
   
-  hybrid = rm_1*balanced_weights[0] + rm_2*balanced_weights[1]+ rm_3*balanced_weights[2]
+  # initiate empty recommendation
+  hybrid = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+  for i, recommendation in enumerate(indiv_recommendations):
+    hybrid+=recommendation*balanced_weights[i]
   
-  return (rm_1,rm_2,rm_3,hybrid,reliability_flags)
+  return (indiv_recommendations,hybrid,reliability_flags)
 
 def balanceWeights(weights):
   total_weight = sum(weights)
@@ -43,15 +46,13 @@ def balanceWeights(weights):
   return weights
 
 def getReliabilityFlags(context):
-  usage_flags = [1,1,1]
-  if context[0] == 0:
-    usage_flags[0] = 0
-  if context[3] == 0 or context[4] == 0 or context[5] == 0:
-    usage_flags[1] = 0
-  if context[2] == 0 or context[6] == 0 or context[7] == 0:
-    usage_flags[2] = 0
+  is_reliable = [1,1,1]
+  for i, recommender in enumerate(RECOMMENDERS_USED):
+    for feature in recommender["used_features"]:
+      if context[feature] == 0:
+        is_reliable[i] = 0
   
-  return usage_flags
+  return is_reliable
 
 def getNotes(rec_vector):
   genre_string = getNote4Genre(rec_vector) 

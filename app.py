@@ -15,32 +15,27 @@ def index():
 def getHTTPParamArray(param):
   return list(map(float, request.args.get(param).split(',')))
 
-def formResponse(recommendations):
-  (rm_1,rm_2,rm_3,hybrid, flags) = recommendations
+def formResponse(recs):
+  (ind_recommendations,hybrid, flags) = recs
   
-  return {
-      "recommenders":[
-        {
-          "name":"hybrid",
-          "recommendation" : getNotes(hybrid.tolist()),
-          "is_reliable": 1
-        },
-        {
-          "name":"recommender_1",
-          "recommendation" : getNotes(rm_1.tolist()),
-          "is_reliable": flags[0]
-        },{
-          "name":"recommender_2",
-          "recommendation" : getNotes(rm_2.tolist()),
-          "is_reliable": flags[1]
-        },{
-          "name":"recommender_3",
-          "recommendation" : getNotes(rm_3.tolist()),
-          "is_reliable": flags[2]
-        }
-      ],
-      "songs" : getSongs(hybrid.tolist())
-    }
+  response = {"recommendations":[], "songs":[]}
+  # response for individual recommenders
+  for i, recommendation in enumerate(ind_recommendations):
+    response["recommendations"].append({
+      "name":"recommender_"+str(i+1),
+      "recommendation": getNotes(recommendation.tolist()),
+      "is_reliable":flags[i]
+      })
+  # responses for hybrid recommender
+  response["recommendations"].append({
+      "name":"hybrid",
+      "recommendation":getNotes(hybrid.tolist()),
+      "is_reliable":1
+      })
+  # responses with recommended tracks
+  response["songs"] = getSongs(hybrid.tolist())
+  
+  return response
 
 @app.route('/recommend', methods=['GET'])
 def recommend():
