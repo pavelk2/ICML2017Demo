@@ -12,6 +12,32 @@ CORS(app)
 def index():
   return render_template('index.html')
 
+def getHTTPParamArray(param):
+  return list(map(float, request.args.get(param).split(',')))
+
+def formResponse(recommendations):
+  (rm_1,rm_2,rm_3,hybrid, flags) = recommendations
+  
+  return {
+      "individuals":[
+        {
+          "name":"recommender_1",
+          "recommendation" : getNotes(rm_1.tolist()),
+          "is_reliable": flags[0]
+        },{
+          "name":"recommender_2",
+          "recommendation" : getNotes(rm_2.tolist()),
+          "is_reliable": flags[1]
+        },{
+          "name":"recommender_3",
+          "recommendation" : getNotes(rm_3.tolist()),
+          "is_reliable": flags[2]
+        }
+      ],
+      "hybrid": getNotes(hybrid.tolist()),
+      "songs" : getSongs(hybrid.tolist())
+    }
+
 @app.route('/recommend', methods=['GET'])
 def recommend():
     weights = getHTTPParamArray("weights")
@@ -29,25 +55,4 @@ if __name__ == '__main__':
   app.run(host='0.0.0.0', port=port, debug=True)
 
 # ==================
-def getHTTPParamArray(param):
-  return list(map(float, request.args.get(param).split(',')))
 
-def formResponse(recommendations):
-  (rm_1,rm_2,rm_3,hybrid) = recommendations
-  
-  return {
-      "individual":[
-        {
-          "name":"recommender_1",
-          "recommendation" : getNotes(rm_1.tolist())
-        },{
-          "name":"recommender_2",
-          "recommendation" : getNotes(rm_2.tolist())
-        },{
-          "name":"recommender_3",
-          "recommendation" : getNotes(rm_3.tolist())
-        }
-      ],
-      "hybrid": getNotes(hybrid.tolist()),
-      "songs" : getSongs(hybrid.tolist())
-    }

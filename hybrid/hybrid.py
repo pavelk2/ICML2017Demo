@@ -28,11 +28,31 @@ def calcRecommendations(weights,context):
   rm_2 = rec2.recommend(context)
   rm_3 = rec3.recommend(context)
 
+
+  balanced_weights = balanceWeights(weights, context)
+  reliability_flags = getReliabilityFlags(context)
+  final_weights = balanced_weights * np.array(reliability_flags)
+  
+  hybrid = rm_1*final_weights[0] + rm_2*final_weights[1]+ rm_3*final_weights[2]
+  
+  return (rm_1,rm_2,rm_3,hybrid,reliability_flags)
+
+def balanceWeights(weights,context):
   total_weight = sum(weights)
   weights = (np.array(weights)/(total_weight*1.0)).tolist()
-  hybrid = rm_1*weights[0]+ rm_2*weights[1]+rm_3*weights[2]
+  
+  return weights
 
-  return (rm_1,rm_2,rm_3,hybrid)
+def getReliabilityFlags(context):
+  usage_flags = [1,1,1]
+  if context[0] == 0:
+    usage_flags[0] = 0
+  if context[3] == 0 or context[4] == 0 or context[5] == 0:
+    usage_flags[1] = 0
+  if context[2] == 0 or context[6] == 0 or context[7] == 0:
+    usage_flags[2] = 0
+  
+  return usage_flags
 
 def getNotes(rec_vector):
   genre_string = getNote4Genre(rec_vector) 
