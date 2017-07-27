@@ -7,18 +7,14 @@ Demo for Machine Learning for Music Discovery workshop at ICML2017 https://icml2
 
 ![](https://habrastorage.org/web/d69/4cd/053/d694cd0537084ab99c6dc35cf77f5f00.png)
 
-## Survey 
-Exploratory survey about causes affecting music preferences
+## How to run locally:
 
-#### Conditions
-
-* One survey was shared on social media (https://pavelkucherbaev.typeform.com/to/WVLEi7)
-* Another survey was launched on human computation platform CrowdFlower (https://pavelkucherbaev.typeform.com/to/Okk9Ni)
-
-#### Results
-
-* We collected 25 responses from social media (https://github.com/pavelk2/ICML2017Demo/blob/master/exploratory_survey/Music%20preferences-report.csv)
-* We collected 103 responses from CrowdFlower (https://github.com/pavelk2/ICML2017Demo/blob/master/exploratory_survey/Music%20preferences%20CrowdFlower-report.csv)
+```bash
+git clone https://github.com/pavelk2/ICML2017Demo demo
+cd demo
+pip install -r requirements.txt
+python app.py
+```
 
 ## API
 
@@ -213,7 +209,6 @@ CONTEXT_EXAMPLE = [1,3,1,2,3,6,2,1]
 
 Recommendations are formed based on 1036 tracks from SoundCLoud: https://github.com/pavelk2/ICML2017Demo/blob/master/exploratory_survey/Music%20preferences-report.csv
 
-
 ### Music Classification
 
 #### GENRES
@@ -260,3 +255,17 @@ update tracks_SC set arousal = -2 where (tags like "%depress%" or tags like "%se
 update tracks_SC set arousal = -3 where (tags like "%letharg%" or tags like "%relax%") or (description like "%letharg%" or description like "%relax%");
 update tracks_SC set arousal = -4 where (tags like "%fatig%" or tags like "%calm%") or (description like "%fatig%" or description like "%calm%");
 ```
+
+## Survey 
+Exploratory survey about causes affecting music preferences
+
+#### Conditions
+
+* One survey was shared on social media (https://pavelkucherbaev.typeform.com/to/WVLEi7)
+* Another survey was launched on human computation platform CrowdFlower (https://pavelkucherbaev.typeform.com/to/Okk9Ni)
+
+#### Results
+
+* We collected 25 responses from social media (https://github.com/pavelk2/ICML2017Demo/blob/master/exploratory_survey/Music%20preferences-report.csv)
+* We collected 103 responses from CrowdFlower (https://github.com/pavelk2/ICML2017Demo/blob/master/exploratory_survey/Music%20preferences%20CrowdFlower-report.csv)
+
