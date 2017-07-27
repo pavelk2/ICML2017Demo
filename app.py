@@ -19,7 +19,12 @@ def formResponse(recommendations):
   (rm_1,rm_2,rm_3,hybrid, flags) = recommendations
   
   return {
-      "individuals":[
+      "recommenders":[
+        {
+          "name":"hybrid",
+          "recommendation" : getNotes(hybrid.tolist()),
+          "is_reliable": 1
+        },
         {
           "name":"recommender_1",
           "recommendation" : getNotes(rm_1.tolist()),
@@ -34,7 +39,6 @@ def formResponse(recommendations):
           "is_reliable": flags[2]
         }
       ],
-      "hybrid": getNotes(hybrid.tolist()),
       "songs" : getSongs(hybrid.tolist())
     }
 
