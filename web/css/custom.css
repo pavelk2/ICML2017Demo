@@ -17,3 +17,15 @@ body {
 table tr td:nth-child(4){
     width:70%;
 }
+
+#nprogress .spinner{
+    color: #f70;
+}
+#nprogress .bar{
+    height:5px;
+    background: #f70;
+
+}
+#nprogress .peg{
+    box-shadow: 0 0 10px #f70;
+}
